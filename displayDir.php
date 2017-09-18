@@ -48,6 +48,9 @@ while ($file = readdir()) {
   }
 }
 
+// sort by file name
+sort($photos);
+
 // If any nested directories exist, produces the sidebar 
 if (count($links) > 0) {
   echo("<div class=\"col-md-2 col-sm-2 col-xs-4\"><ul class=\"list-unstyled\">");
