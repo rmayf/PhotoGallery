@@ -29,7 +29,7 @@ if( !empty( $newAlbums ) ) {
      ->setPassword( $emailPassword );
    
    $mailer = Swift_Mailer::newInstance($transport);
-   $prefix = 'http://bean3.homeftp.net/sendNotification.php?path=';
+   $prefix = 'http://bean3.homeftp.net:789/sendNotification.php?path=';
    $msg = file_get_contents( 'newAlbum.template' );
    foreach( $newAlbums as $album ) {
       $ar = explode( '/', $album );
