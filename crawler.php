@@ -19,9 +19,7 @@ handleDir( 'Home/' );
 if( !empty( $newAlbums ) ) {
    echo( "Found new albums!\n" );
    print_r( $newAlbums );
-   $mongo = new MongoClient();
-   $db = $mongo->main;
-   $albums = $db->albums;
+   $manager = new MongoDB\Driver\Manager();
 
    require_once 'swiftmailer/lib/swift_required.php';
    $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
@@ -37,9 +35,13 @@ if( !empty( $newAlbums ) ) {
       $key = sha1(microtime(true).mt_rand(10000,90000));
       $msg .= "<a href=\"$prefix$album&key=$key\">$title</a><br>";
 
-      $albums->update( array( 'path' => $album ),
-                       array( 'path' => $album, 'key' => $key, 'notified' => false ),
-                       array( 'upsert' => true ) );
+      $command = new MongoDB\Driver\Command( array( "update" => "albums",
+                       "updates" => [ array( "q" => array( "path" => $album ),
+                                             "u" => array( "path" => $album,
+							   "key" => $key,
+							   "notified" => false ),
+					     "upsert" => true ) ] ) );
+      $manager->executeCommand( 'main', $command );
    }
    $msg .= "</body></html>";
    $message = Swift_Message::newInstance('Album Notification Confirmation')

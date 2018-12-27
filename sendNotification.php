@@ -1,22 +1,29 @@
 <?php
 require_once 'emailerPrivateInfo.php';
 
-$mongo = new MongoClient();
-$main = $mongo->main;
-$albums = $main->albums;
-$users = $main->users;
+$manager = new MongoDB\Driver\Manager();
 $path = (string)$_GET[ 'path' ];
 $key = (string)$_GET[ 'key' ];
-$album = $albums->findOne( array( 'path' => $path, 'key' => $key ) );
-if( is_null( $album ) ) {
+$query = new MongoDB\Driver\Query(
+		array( 'path' => $path, 'key' => $key ),
+		array() );
+$cursor = $manager->executeQuery( "main.albums", $query );
+$albums = $cursor->toArray();
+if( empty( $albums ) ) {
    die( 'path/key pair is wrong' );
 }
-if( $album[ 'notified' ] ) {
+if( count( $albums ) > 1 ) {
+   die( 'multiple entries returned for path/key pair' );
+}
+if( $albums[ 0 ]->notified ) {
    die( 'notification already sent' );
 }
-$albums->update( array( 'path' => $path ),
-                 array( 'path' => $path, 'key' => $key, 'notified' => true ) );
-$it = $users->find();
+$bulk = new MongoDB\Driver\BulkWrite;
+$bulk->update( [ 'path' => $path ],
+               [ '$set' => [ 'notified' => true ] ] );
+$result = $manager->executeBulkWrite( 'main.albums', $bulk );
+$query = new MongoDB\Driver\Query( array(), array() );
+$it = $manager->executeQuery( "main.users",  $query );
 
 require_once 'swiftmailer/lib/swift_required.php';
 
@@ -34,9 +41,9 @@ $message = Swift_Message::newInstance('New Mayfield Photo Album')
 
 foreach( $it as $user ) {
    $msg = $template;
-   $msg = str_replace( '{user}', $user[ 'email' ], $msg );
-   $msg = str_replace( '{key}', $user[ 'key' ], $msg );
-   $message->setTo( array( $user[ 'email' ] ) ) 
+   $msg = str_replace( '{user}', $user->email, $msg );
+   $msg = str_replace( '{key}', $user->key, $msg );
+   $message->setTo( array( $user->email ) )
   	   ->setBody( $msg, 'text/html' );
    $result = $mailer->send($message);
 }

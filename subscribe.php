@@ -1,11 +1,14 @@
 <?php
+$email = (string)$_GET[ 'email' ];
+if( empty( $email ) ) {
+   die( 'no email specified in GET options' );
+}
+$key = sha1( microtime( true ).mt_rand( 10000, 90000 ) );
 
-$email = (string) $_GET[ 'email' ];
-
-$mongo = new MongoClient();
-$users = $mongo->main->users;
-
-$users->update( array( 'email' => $email ),
-                array( 'email' => $email, 'key' => sha1(microtime(true).mt_rand(10000,90000)) ),
-                array( 'upsert' => true ) );
+$manager = new MongoDB\Driver\Manager();
+$bulk = new MongoDB\Driver\BulkWrite;
+$bulk->update( [ 'email' => $email ],
+	       [ '$set' => [ 'key' => $key ] ],
+	       [ 'upsert' => true ] );
+$manager->executeBulkWrite( 'main.users', $bulk );
 echo( 'Thank you for subscribing' );
