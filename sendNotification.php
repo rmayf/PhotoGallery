@@ -1,5 +1,5 @@
 <?php
-require_once 'emailerPrivateInfo.php'
+require_once 'emailerPrivateInfo.php';
 
 $mongo = new MongoClient();
 $main = $mongo->main;

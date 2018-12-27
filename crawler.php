@@ -1,6 +1,6 @@
 #!/usr/bin/php
 <?php
-require_once 'emailerPrivateInfo.php'
+require_once 'emailerPrivateInfo.php';
 // This should only be ran from cron
 // don't allow it to be run from web
 if (isset($_SERVER['REMOTE_ADDR'])) die('Permission denied.');
