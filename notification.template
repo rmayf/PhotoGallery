@@ -4,11 +4,11 @@
    <body>
      There is a new album on the Mayfield Photo Gallery: 
      <br>
-     <a href="http://bean3.homeftp.net:789/displayDir.php?dir={path}" style="font-size:28px">{album}</a>
+     <a href="http://beanpictures.homeftp.net/displayDir.php?dir={path}" style="font-size:28px">{album}</a>
      <br><br>
      <div style="font-size:10px">
      Tired of these emails? click to 
-     <a href="http://bean3.homeftp.net:789/unsubscribe.php?user={user}&key={key}">unsubscribe</a>
+     <a href="http://beanpictures.homeftp.net/unsubscribe.php?user={user}&key={key}">unsubscribe</a>
      </div>
    </body>
 </html>
