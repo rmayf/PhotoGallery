@@ -43,7 +43,7 @@ if( !empty( $newAlbums ) ) {
    }
    $msg .= "</body></html>";
    $message = Swift_Message::newInstance('Album Notification Confirmation')
-     ->setFrom(array( $emailerUsername => 'Album Crawler'))
+     ->setFrom(array( $emailUsername => 'Album Crawler'))
      ->setTo(array('brockband1@gmail.com'))
      ->setCC(array('rmayf3@gmail.com' ) )
      ->setBody( $msg, 'text/html' );
