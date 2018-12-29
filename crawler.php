@@ -12,9 +12,10 @@ chdir( $workDir );
 
 $options = getopt( "", array( "interval::" ) );
 if( isset( $options[ 'interval' ] ) && empty( $options[ 'interval' ] ) ) {
-   die( "--interval requires an argument in minutes (e.g. --interval=45)" );
+   die( "--interval requires an argument in minutes (e.g. --interval=45)\n" );
 }
-$delaySeconds = $options[ 'interval' ] * 60;
+
+$punchcard = '.punchcard';
 
 function handleDir( $dirString ) {
    global $prevTime, $newAlbums;
@@ -37,7 +38,11 @@ function handleDir( $dirString ) {
 }
 
 do {
-   // crawl the tree, checking all folders to see if they are new
+   // check last runtime by getting mtime of punchcard file
+   $prevTime = filemtime( $punchcard );
+   // update mtime by touching punchcard
+   touch( $punchcard );
+   echo( "Previous run " . date( "F d Y H:i:s.", $prevTime ) ."\n" );
    $newAlbums = array();
    handleDir( 'Home/' );
    if( !empty( $newAlbums ) ) {
@@ -73,7 +78,7 @@ do {
         ->setTo(array('brockband1@gmail.com'))
         ->setCC(array('rmayf3@gmail.com' ) )
         ->setBody( $msg, 'text/html' );
-
-      $result = $mailer->send($message);
+      //A4NOMERGE
+      //$result = $mailer->send($message);
    }
-} while( $delaySeconds && sleep( $delaySeconds ) );
+} while( isset( $options[ 'interval' ] ) && sleep( $options[ 'interval' ] * 60 ) == 0 );
