@@ -77,7 +77,18 @@ echo("</div></div>");
 close_html();
 
 function print_html_base() {
-  echo ("<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Mayfield Photo Gallery</title><link href=\"bootstrap.min.css\" rel=\"stylesheet\"><script src=\"http://code.jquery.com/jquery.js\"></script><script src=\"bootstrap.min.js\"></script><script language=\"javascript\" type=\"text/javascript\" src=\"sub.js\"></script><link rel=\"stylesheet\" href=\"photoswipe.css\"><link rel=\"stylesheet\" href=\"default-skin/default-skin.css\"><link rel=\"stylesheet\" href=\"displayDir.css\"><script src=\"photoswipe.min.js\"></script><script src=\"photoswipe-ui-default.min.js\"></script><script src=\"galleryInit.js\"></script></head><body>");
+  echo("<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><title>Mayfield Photo Gallery</title>" );
+  echo("<link href=\"https://stackpath.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css\" rel=\"stylesheet\" integrity=\"sha384-Ej0hUpn6wbrOTJtRExp8jvboBagaz+Or6E9zzWT+gHCQuuZQQVZUcbmhXQzSG17s\" crossorigin=\"anonymous\">");
+  echo("<script src=\"http://code.jquery.com/jquery.js\"></script>");
+  echo("<script src=\"https://stackpath.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js\" integrity=\"sha384-VI5+XuguQ/l3kUhh4knz7Hxptx47wpQbVRDnp8v7Vvuhzwn1PEYb/uvtH6KLxv6d\" crossorigin=\"anonymous\"></script>");
+  echo("<script language=\"javascript\" type=\"text/javascript\" src=\"sub.js\"></script>");
+  echo("<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.0.7/photoswipe.min.css\">");
+  echo("<link rel=\"stylesheet\" href=\"https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.0.7/default-skin/default-skin.css\">");
+  echo("<link rel=\"stylesheet\" href=\"displayDir.css\">");
+  echo("<script src=\"https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.0.7/photoswipe.min.js\"></script>");
+  echo("<script src=\"https://cdnjs.cloudflare.com/ajax/libs/photoswipe/4.0.7/photoswipe-ui-default.min.js\"></script>");
+  echo("<script src=\"galleryInit.js\"></script>");
+  echo("</head><body>");
 }
 
 function close_html() {
