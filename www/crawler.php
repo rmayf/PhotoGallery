@@ -1,4 +1,4 @@
-#!/usr/bin/php
+#!/usr/bin/env php
 <?php
 require_once 'emailerPrivateInfo.php';
 // This should only be ran from cron
@@ -50,7 +50,7 @@ do {
       print_r( $newAlbums );
       $manager = new MongoDB\Driver\Manager();
 
-      require_once 'swiftmailer/lib/swift_required.php';
+      require_once 'swiftmailer/swiftmailer/lib/swift_required.php';
       $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
         ->setUsername( $emailUsername )
         ->setPassword( $emailPassword );
@@ -78,7 +78,6 @@ do {
         ->setTo(array('brockband1@gmail.com'))
         ->setCC(array('rmayf3@gmail.com' ) )
         ->setBody( $msg, 'text/html' );
-      //A4NOMERGE
-      //$result = $mailer->send($message);
+      $result = $mailer->send($message);
    }
 } while( isset( $options[ 'interval' ] ) && sleep( $options[ 'interval' ] * 60 ) == 0 );

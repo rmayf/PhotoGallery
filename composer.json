@@ -1,0 +1,16 @@
+{
+    "name": "rmayf/PhotoGallery",
+    "type": "project",
+    "description": "Personal site for sharing and viewing family photographs",
+    "authors": [
+        {
+            "name": "Reid Mayfield",
+            "email": "rmayf3@gmail.com"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "swiftmailer/swiftmailer": "^5.3.1",
+        "ext-mongodb": "^1.5.3"
+    }
+}
