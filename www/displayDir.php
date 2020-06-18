@@ -192,7 +192,7 @@ function link_photo($p_dir, $file, $photoIdx) {
     }
     $dimString = explode( " ", $identifyCmdOutput[ 0 ] )[ 2 ];
     $dim = explode( "x", $dimString );
-    echo("<img onclick=\"onThumbClick( $photoIdx )\" src=\"$t_dir$thumb\" class=\"img-thumbnail\" x=" . $dim[ 0 ] . " y=" . $dim[ 1 ] . " idx=$photoIdx>");
+    echo("<img onclick=\"onThumbClick( $photoIdx )\" src=\"$t_dir$thumb\" class=\"img-thumbnail\" x=" . $dim[ 0 ] . " y=" . $dim[ 1 ] . " idx=$photoIdx " . "photo=$photoPath>");
 		$photoIdx++;
   }
 }

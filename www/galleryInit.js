@@ -5,12 +5,13 @@ function onThumbClick( idx ) {
   var imgs = [] 
   for( var i = 0; i < imgDOMs.length; i++ ) {
     var img = imgDOMs[ i ]
-    var src = img.attributes[ 'src' ].value
+    var src = img.attributes[ 'photo' ].value
+    var msrc = img.attributes[ 'src' ].value
     imgs.push( {
-      src: src.substring( 7 ),
+      src: src,
       w: parseInt( img.attributes[ 'x' ].value ),
       h: parseInt( img.attributes[ 'y' ].value ),
-      msrc: src
+      msrc: msrc
     } )
   }
   var options = {
