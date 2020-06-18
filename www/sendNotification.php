@@ -1,7 +1,7 @@
 <?php
 require_once 'emailerPrivateInfo.php';
 
-$manager = new MongoDB\Driver\Manager();
+$manager = new MongoDB\Driver\Manager("mongodb://mongo:27017");
 $path = (string)$_GET[ 'path' ];
 $key = (string)$_GET[ 'key' ];
 $query = new MongoDB\Driver\Query(

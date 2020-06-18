@@ -5,7 +5,7 @@ if( empty( $email ) ) {
 }
 $key = sha1( microtime( true ).mt_rand( 10000, 90000 ) );
 
-$manager = new MongoDB\Driver\Manager();
+$manager = new MongoDB\Driver\Manager("mongodb://mongo:27017");
 $bulk = new MongoDB\Driver\BulkWrite;
 $bulk->update( [ 'email' => $email ],
 	       [ '$set' => [ 'key' => $key ] ],

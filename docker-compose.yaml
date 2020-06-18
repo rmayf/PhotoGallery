@@ -1,0 +1,16 @@
+version: "3"
+services:
+   mongo:
+      image: "mongo:latest"
+      volumes:
+         - "${MONGO_VOLUME:-mongo-mayf-photo}:/data/db"
+   apache:
+      build: .
+      image: "mayf-photo"
+      volumes:
+         - "${PHOTO_DIR:?PHOTO_DIR environment variable must be provided}:/var/www/html/Home"
+         - "${THUMB_DIR:?THUMB_DIR environment variable must be provided}:/var/www/html/thumbs"
+      ports:
+         - "${MAYF_PORT:-4000}:80"
+volumes:
+   mongo-mayf-photo:

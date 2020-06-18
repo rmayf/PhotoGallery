@@ -42,7 +42,7 @@ handleDir( 'Home/' );
 if( !empty( $newAlbums ) ) {
    echo( "Found new albums!\n" );
    print_r( $newAlbums );
-   $manager = new MongoDB\Driver\Manager();
+   $manager = new MongoDB\Driver\Manager("mongodb://mongo:27017");
 
    require_once 'swiftmailer/swiftmailer/lib/swift_required.php';
    $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
