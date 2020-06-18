@@ -10,4 +10,3 @@ RUN pecl install mongodb-1.5.3 \
 COPY --from=build /app/vendor /var/www/html/
 COPY www/ /var/www/html/
 EXPOSE 80
-#CMD [ "/var/www/html/crawler.php", "--interval=30" ]
