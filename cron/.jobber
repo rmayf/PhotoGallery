@@ -1,0 +1,4 @@
+[jobs]
+- name: WebCrawlerDaily
+  cmd: wget apache/crawler.php -O -
+  time: "1 */30"

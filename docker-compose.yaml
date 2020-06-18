@@ -11,6 +11,10 @@ services:
          - "${PHOTO_DIR:?PHOTO_DIR environment variable must be provided}:/var/www/html/Home"
          - "${THUMB_DIR:?THUMB_DIR environment variable must be provided}:/var/www/html/thumbs"
       ports:
-         - "${MAYF_PORT:-4000}:80"
+         - "${MAYF_PORT:-789}:80"
+   cron:
+      image: "jobber"
+      volumes:
+         - "./cron:/home/jobberuser/"
 volumes:
    mongo-mayf-photo:

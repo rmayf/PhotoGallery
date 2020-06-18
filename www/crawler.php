@@ -3,7 +3,6 @@
 require_once 'emailerPrivateInfo.php';
 // This should only be ran from cron
 // don't allow it to be run from web
-if (isset($_SERVER['REMOTE_ADDR'])) die('Permission denied.');
 
 $seperator = "/";
 $pathComponents = explode( $seperator, __FILE__ );
@@ -50,7 +49,7 @@ if( !empty( $newAlbums ) ) {
      ->setPassword( $emailPassword );
 
    $mailer = Swift_Mailer::newInstance($transport);
-   $prefix = 'http://beanpictures.homeftp.net/sendNotification.php?path=';
+   $prefix = 'http://beanpictures.host:789/sendNotification.php?path=';
    $msg = file_get_contents( 'newAlbum.template' );
    foreach( $newAlbums as $album ) {
       $ar = explode( '/', $album );
