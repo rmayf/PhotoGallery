@@ -11,3 +11,6 @@ docker exec -it <container_name> /bin/bash
 
 # Build new image
 docker build -t mayf-photo .
+
+# Start entire service
+PHOTO_DIR=/Users/rmayf/Pictures THUMB_DIR=/Users/rmayf/Pictures/thumbs docker-compose up [--build]
