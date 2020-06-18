@@ -8,8 +8,8 @@ services:
       build: .
       image: "mayf-photo"
       volumes:
-         - "${PHOTO_DIR:?PHOTO_DIR environment variable must be provided}:/var/www/html/Home"
-         - "${THUMB_DIR:?THUMB_DIR environment variable must be provided}:/var/www/html/thumbs"
+         - "${PHOTO_DIR:-/var/www/html/Home}:/var/www/html/Home"
+         - "${THUMB_DIR:-/var/www/html/thumbs}:/var/www/html/thumbs"
       ports:
          - "${MAYF_PORT:-789}:80"
    cron:
