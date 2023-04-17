@@ -38,9 +38,6 @@ while ($file = readdir()) {
           array_push($photos, $file);
         }
       }
-      if (stripos($file, '.mp4')) {
-        array_push($photos, $file);
-      }
     }
     else {
       array_push($links, $file);
@@ -68,7 +65,9 @@ if (count($photos) > 0) {
 $photoIdx = 0;
 foreach($photos as $p) {
   link_photo($photo_dir, $p, $photoIdx);
-	$photoIdx++;
+  if(!stripos($p, '.mp4')) {
+     $photoIdx++;
+  }
 }
 echo("</div>");
 echo("</div>");
@@ -171,29 +170,25 @@ function link_photo($p_dir, $file, $photoIdx) {
       exit("mkdir failed on: $t_dir");
     }
   }
-	$photoPath = addcslashes($p_dir . $file, $escape_chars);
+  $photoPath = addcslashes($p_dir . $file, $escape_chars);
+  # If it's a video, use the first frame to generate the thumbnail
+  $imgMagicPhotoPath = stripos($file, '.mp4') ? $photoPath . '[0]' : $photoPath;
   if (!file_exists($t_dir . $thumb)) {
-    if (stripos($file, '.mp4')) {
-      // TODO
-      exec( "convert " . $photoPath . "[0] " . addcslashes($t_dir . $thumb, $escape_chars), $out );
-    } else {
-      exec("convert $photoPath -resize 100x100 " . addcslashes($t_dir . $thumb, $escape_chars));
-    }
+    exec("convert $imgMagicPhotoPath -resize 100x100 " . addcslashes($t_dir . $thumb, $escape_chars));
   }
 	
+  // Find dimensions of the photo
+  $identifyCmdOutput = [];
+  exec( "identify $imgMagicPhotoPath", $identifyCmdOutput );
+  if( count( $identifyCmdOutput ) != 1 ) {
+     exit( "identify shell command failed" );
+  }
+  $dimString = explode( " ", $identifyCmdOutput[ 0 ] )[ 2 ];
+  $dim = explode( "x", $dimString );
   if (stripos($file, '.mp4')) {
-    echo("<a href=\"$p_dir$file\"><img src=\"$t_dir$thumb\" class=\"video-thumbnail\"></a>");
+     echo("<a href=\"$photoPath\"><img src=\"$t_dir$thumb\" class=\"img-thumbnail\" width=100 height=100></a>");
   } else {
-    // Find dimensions of the photo
-    $identifyCmdOutput = [];
-    exec( "identify $photoPath", $identifyCmdOutput );
-    if( count( $identifyCmdOutput ) != 1 ) {
-    	exit( "identify shell command failed" );
-    }
-    $dimString = explode( " ", $identifyCmdOutput[ 0 ] )[ 2 ];
-    $dim = explode( "x", $dimString );
-    echo("<img onclick=\"onThumbClick( $photoIdx )\" src=\"$t_dir$thumb\" class=\"img-thumbnail\" x=" . $dim[ 0 ] . " y=" . $dim[ 1 ] . " idx=$photoIdx " . "photo=$photoPath>");
-		$photoIdx++;
+     echo("<img onclick=\"onThumbClick( $photoIdx )\" src=\"$t_dir$thumb\" id=\"psw-img\" class=\"img-thumbnail\" x=" . $dim[ 0 ] . " y=" . $dim[ 1 ] . " idx=$photoIdx " . "photo=$photoPath>");
   }
 }
 

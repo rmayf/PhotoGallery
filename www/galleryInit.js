@@ -1,6 +1,6 @@
 function onThumbClick( idx ) {
   console.log( 'onThumbClick( ' + idx + ' )' )
-  var selector = 'img.img-thumbnail'
+  var selector = '#psw-img'
   var imgDOMs = document.querySelectorAll( selector )
   var imgs = [] 
   for( var i = 0; i < imgDOMs.length; i++ ) {

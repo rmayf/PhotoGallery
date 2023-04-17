@@ -4,7 +4,7 @@ RUN composer install --ignore-platform-reqs --no-autoloader
 
 FROM php:7.0-apache as production
 RUN apt-get update && apt-get install -y \
-    imagemagick
+    imagemagick ffmpeg
 RUN pecl install mongodb-1.5.3 \
     && docker-php-ext-enable mongodb
 COPY --from=build /app/vendor /var/www/html/

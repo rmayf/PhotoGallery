@@ -8,8 +8,8 @@ services:
       build: .
       image: "mayf-photo"
       volumes:
-         - "${PHOTO_DIR:-G:\root\backup\brock\desktop\Pictures}:/var/www/html/Home"
-         - "${THUMB_DIR:-G:\thum_nail_pictures}:/var/www/html/thumbs"
+         - '${PHOTO_DIR:-G:\root\backup\brock\desktop\Pictures}:/var/www/html/Home'
+         - '${THUMB_DIR:-G:\thum_nail_pictures}:/var/www/html/thumbs'
       ports:
          - "${MAYF_PORT:-789}:80"
    cron:
