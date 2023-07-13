@@ -33,7 +33,7 @@ $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
 $mailer = Swift_Mailer::newInstance($transport);
 
 $template = file_get_contents( 'notification.template' );
-$template = str_replace( '{path}', $path, $template );
+$template = str_replace( '{key}', $key, $template );
 $template = str_replace( '{album}', end(explode( '/', $path ) ), $template );
 $message = Swift_Message::newInstance('New Mayfield Photo Album')
   ->setFrom(array( $emailUsername => 'Mayfield Photo Gallery'));
@@ -41,7 +41,6 @@ $message = Swift_Message::newInstance('New Mayfield Photo Album')
 foreach( $it as $user ) {
    $msg = $template;
    $msg = str_replace( '{user}', $user->email, $msg );
-   $msg = str_replace( '{key}', $user->key, $msg );
    $message->setTo( array( $user->email ) )
   	   ->setBody( $msg, 'text/html' );
    $result = $mailer->send($message);

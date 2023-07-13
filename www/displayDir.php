@@ -204,10 +204,12 @@ function print_nav_tab($d_) {
   array_pop($exp);
   $len = count($exp);
   $link = '';
-  for ($i = 0; $i < $len - 1; $i++) {
-    $link .= $exp[$i];
-    echo("<li><a href=\"displayDir.php?dir=$link\">".$exp[$i]."</a></li>");
-    $link .= '/';
+  if (!isset($GLOBALS[ 'skip_breadcrumbs' ])) {
+    for ($i = 0; $i < $len - 1; $i++) {
+      $link .= $exp[$i];
+      echo("<li><a href=\"displayDir.php?dir=$link\">".$exp[$i]."</a></li>");
+      $link .= '/';
+    }
   }
   echo("<li class=\"active\">".$exp[$len - 1]."</li>");
   echo( "<button id=\"subBtn\" class=\"btn-small btn-primary pull-right\">Subscribe</button>" );
