@@ -25,8 +25,7 @@ $result = $manager->executeBulkWrite( 'main.albums', $bulk );
 $query = new MongoDB\Driver\Query( array(), array() );
 $it = $manager->executeQuery( "main.users",  $query );
 
-require_once 'swiftmailer/lib/swift_required.php';
-
+require_once 'swiftmailer/swiftmailer/lib/swift_required.php';
 $transport = Swift_SmtpTransport::newInstance('smtp.gmail.com', 465, "ssl")
   ->setUsername( $emailUsername )
   ->setPassword( $emailPassword );
